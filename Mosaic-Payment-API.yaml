@@ -10,7 +10,7 @@ servers:
 paths:
   /v1/payment:
     post:
-      summary: Make a payment
+      summary: Make payments
       tags: []
       responses:
         '200':
