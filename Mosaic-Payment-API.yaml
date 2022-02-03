@@ -143,84 +143,63 @@ paths:
               description: ''
               type: object
               properties:
+                orderID:
+                  type: string
+                  minLength: 1
                 intent:
                   type: string
                   minLength: 1
-                payer:
+                payment_method:
+                  type: string
+                  minLength: 1
+                total:
+                  type: string
+                  minLength: 1
+                currency:
+                  type: string
+                  minLength: 1
+                description:
+                  type: string
+                  minLength: 1
+                invoice_number:
+                  type: string
+                  minLength: 1
+                shipping_address:
                   type: object
                   properties:
-                    payment_method:
+                    recipient_name:
+                      type: string
+                      minLength: 1
+                    line1:
+                      type: string
+                      minLength: 1
+                    line2:
+                      type: string
+                      minLength: 1
+                    city:
+                      type: string
+                      minLength: 1
+                    country_code:
+                      type: string
+                      minLength: 1
+                    postal_code:
+                      type: string
+                      minLength: 1
+                    phone:
+                      type: string
+                      minLength: 1
+                    state:
                       type: string
                       minLength: 1
                   required:
-                    - payment_method
-                transactions:
-                  type: array
-                  uniqueItems: true
-                  minItems: 1
-                  items:
-                    required:
-                      - total
-                      - currency
-                      - description
-                      - invoice_number
-                    properties:
-                      total:
-                        type: string
-                        minLength: 1
-                      currency:
-                        type: string
-                        minLength: 1
-                      description:
-                        type: string
-                        minLength: 1
-                      invoice_number:
-                        type: string
-                        minLength: 1
-                      payment_options:
-                        type: object
-                        properties:
-                          allowed_payment_method:
-                            type: string
-                            minLength: 1
-                        required:
-                          - allowed_payment_method
-                      shipping_address:
-                        type: object
-                        properties:
-                          recipient_name:
-                            type: string
-                            minLength: 1
-                          line1:
-                            type: string
-                            minLength: 1
-                          line2:
-                            type: string
-                            minLength: 1
-                          city:
-                            type: string
-                            minLength: 1
-                          country_code:
-                            type: string
-                            minLength: 1
-                          postal_code:
-                            type: string
-                            minLength: 1
-                          phone:
-                            type: string
-                            minLength: 1
-                          state:
-                            type: string
-                            minLength: 1
-                        required:
-                          - recipient_name
-                          - line1
-                          - line2
-                          - city
-                          - country_code
-                          - postal_code
-                          - phone
-                          - state
+                    - recipient_name
+                    - line1
+                    - line2
+                    - city
+                    - country_code
+                    - postal_code
+                    - phone
+                    - state
                 note_to_payer:
                   type: string
                   minLength: 1
@@ -237,32 +216,34 @@ paths:
                     - return_url
                     - cancel_url
               required:
+                - orderID
                 - intent
-                - payer
-                - transactions
+                - payment_method
+                - total
+                - currency
+                - description
+                - invoice_number
+                - shipping_address
                 - note_to_payer
                 - redirect_urls
               x-examples:
                 example-1:
+                  orderID: CANB0564
                   intent: sale
-                  payer:
-                    payment_method: paypal
-                  transactions:
-                    - total: '30.11'
-                      currency: USD
-                      description: The payment transaction description.
-                      invoice_number: '48787589673'
-                      payment_options:
-                        allowed_payment_method: INSTANT_FUNDING_SOURCE
-                      shipping_address:
-                        recipient_name: Brian Robinson
-                        line1: 4th Floor
-                        line2: 'Unit #34'
-                        city: San Jose
-                        country_code: US
-                        postal_code: '95131'
-                        phone: '011862212345678'
-                        state: CA
+                  payment_method: paypal
+                  total: '30.11'
+                  currency: USD
+                  description: The payment transaction description.
+                  invoice_number: '48787589673'
+                  shipping_address:
+                    recipient_name: Brian Robinson
+                    line1: 4th Floor
+                    line2: 'Unit #34'
+                    city: San Jose
+                    country_code: US
+                    postal_code: '95131'
+                    phone: '011862212345678'
+                    state: CA
                   note_to_payer: Contact us for any questions on your order.
                   redirect_urls:
                     return_url: 'https://example.com/return'
